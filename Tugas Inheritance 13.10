@@ -1,0 +1,100 @@
+public class Main {
+    public static void main(String[] args) {
+        Rectangle r1 = new Rectangle(4, 5);
+        Rectangle r2 = new Rectangle(2, 10);
+        Rectangle r3 = new Rectangle(3, 6);
+
+        System.out.println(r1);
+        System.out.println(r2);
+        System.out.println("r1 equals r2? " + r1.equals(r2)); // true
+        System.out.println("r1 compareTo r3: " + r1.compareTo(r3)); // >0
+    }
+}
+
+// Superclass
+class GeometricObject {
+    private String color = "white";
+    private boolean filled;
+
+    public GeometricObject() {}
+
+    public GeometricObject(String color, boolean filled) {
+        this.color = color;
+        this.filled = filled;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public boolean isFilled() {
+        return filled;
+    }
+
+    public void setFilled(boolean filled) {
+        this.filled = filled;
+    }
+
+    @Override
+    public String toString() {
+        return "Color: " + color + ", Filled: " + filled;
+    }
+}
+
+// Subclass Rectangle yang Comparable
+class Rectangle extends GeometricObject implements Comparable<Rectangle> {
+    private double width;
+    private double height;
+
+    public Rectangle() {}
+
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public Rectangle(double width, double height, String color, boolean filled) {
+        super(color, filled);
+        this.width = width;
+        this.height = height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getArea() {
+        return width * height;
+    }
+
+    public double getPerimeter() {
+        return 2 * (width + height);
+    }
+
+    @Override
+    public int compareTo(Rectangle other) {
+        return Double.compare(this.getArea(), other.getArea());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Rectangle) {
+            Rectangle other = (Rectangle) obj;
+            return this.getArea() == other.getArea();
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle[width=" + width + ", height=" + height + ", area=" + getArea() + "]";
+    }
+}
